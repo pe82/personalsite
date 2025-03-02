@@ -21,6 +21,31 @@ themeToggle.addEventListener('click', () => {
     setTheme(!isDark);
 });
 
+// Contact section highlighting
+function highlightContactSection() {
+    const contactSection = document.querySelector('.contact');
+    contactSection.classList.add('highlight');
+    
+    // Remove the highlight class after animation completes
+    setTimeout(() => {
+        contactSection.classList.remove('highlight');
+    }, 5000);
+
+    // Ensure smooth scroll to contact section
+    contactSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+// Add click handlers to all CTA buttons that link to contact section
+document.addEventListener('DOMContentLoaded', () => {
+    const ctaButtons = document.querySelectorAll('a[href="#contact"]');
+    ctaButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            highlightContactSection();
+        });
+    });
+});
+
 // Sample projects data
 const projects = [
     {

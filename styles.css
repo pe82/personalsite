@@ -255,6 +255,43 @@ h2 {
     background-color: var(--bg-color);
     position: relative;
     box-shadow: var(--section-shadow);
+    transition: var(--transition);
+}
+
+@keyframes highlightSection {
+    0% {
+        background-color: var(--bg-color);
+    }
+    10% {
+        background-color: var(--primary-color);
+        box-shadow: 0 0 20px var(--primary-color);
+    }
+    30% {
+        background-color: var(--bg-color);
+    }
+    50% {
+        background-color: var(--primary-color);
+        box-shadow: 0 0 20px var(--primary-color);
+    }
+    70% {
+        background-color: var(--bg-color);
+    }
+    90% {
+        background-color: var(--primary-color);
+        box-shadow: 0 0 20px var(--primary-color);
+    }
+    100% {
+        background-color: var(--bg-color);
+    }
+}
+
+.contact.highlight {
+    animation: highlightSection 5s ease-in-out;
+}
+
+.contact.highlight .contact-content {
+    position: relative;
+    z-index: 1;
 }
 
 .contact-content {
