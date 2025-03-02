@@ -106,6 +106,7 @@ body {
     background: var(--accent-gradient);
     position: relative;
     overflow: hidden;
+    margin-top: 4rem;
 }
 
 .hero::before {
