@@ -141,45 +141,35 @@ if (projectsGrid) {
     document.head.appendChild(style);
 }
 
-// Dad Joke functionality - simplified version
+// Dad Joke functionality
 document.addEventListener('DOMContentLoaded', function() {
     // Elements
     const jokeText = document.querySelector('.dad-joke-text');
     const refreshButton = document.querySelector('.refresh-joke');
     
-    // Dad jokes collection
-    const dadJokes = [
-        "Why don't programmers like nature? It has too many bugs!",
-        "Why did the developer go broke? Because he used up all his cache!",
-        "Why do Java developers wear glasses? Because they don't C#!",
-        "How many programmers does it take to change a light bulb? None, that's a hardware problem!",
-        "What's a programmer's favorite hangout place? The Foo Bar!",
-        "Why was the JavaScript developer sad? Because he didn't Node how to Express himself!",
-        "Why did the developer quit his job? Because he didn't get arrays!",
-        "What do you call a programmer from Finland? Nerdic!",
-        "What's the object-oriented way to become wealthy? Inheritance!",
-        "Why did the functions stop calling each other? They had too many arguments!",
-        "Why was the constant angry? Because it couldn't change!",
-        "What's a developer's favorite tea? Proper-tea!",
-        "Why do programmers always mix up Christmas and Halloween? Because Oct 31 == Dec 25!",
-        "Why do programmers prefer dark mode? Because light attracts bugs!"
-    ];
-    
-    // Function to get a random joke
-    function getRandomJoke() {
-        const randomIndex = Math.floor(Math.random() * dadJokes.length);
-        return dadJokes[randomIndex];
+    // Function to get a random joke from the CSV file
+    async function getRandomJoke() {
+        try {
+            const response = await fetch('jokes.csv');
+            const text = await response.text();
+            const jokes = text.split('\n').filter(joke => joke.trim() !== '');
+            const randomIndex = Math.floor(Math.random() * jokes.length);
+            return jokes[randomIndex];
+        } catch (error) {
+            console.error('Error loading jokes:', error);
+            return "Why don't programmers like nature? It has too many bugs!";
+        }
     }
     
     // Function to display a new joke
-    function displayNewJoke() {
-        jokeText.textContent = getRandomJoke();
+    async function displayNewJoke() {
+        if (jokeText) {
+            jokeText.textContent = await getRandomJoke();
+        }
     }
     
     // Display initial joke
-    if (jokeText) {
-        displayNewJoke();
-    }
+    displayNewJoke();
     
     // Add refresh button functionality
     if (refreshButton) {
